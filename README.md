@@ -24,7 +24,7 @@ JSON sales data is sent through the HTTP endpoint. The input data is validated a
        
         Input data validation passed.
 
- 3. Use Postman to make the following JSON POST request:
+3. Use Postman to make the following JSON POST request:
  
         {
         "item name": "aa", 
@@ -33,7 +33,7 @@ JSON sales data is sent through the HTTP endpoint. The input data is validated a
         "membership": "free"
         }
         
-    This message throws an exception as the email field is missing. Status code 400 is returned with the following message:
+   This message throws an exception as the email field is missing. Status code 400 is returned with the following message:
     
         Missing input data: {item name=aa, membership=free, item price per unit=1, item units=10}
 
