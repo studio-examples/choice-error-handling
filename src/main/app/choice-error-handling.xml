@@ -17,17 +17,15 @@ http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mul
         <set-variable variableName="order" value="#[payload]" doc:name="Set variable 'order'"/>
         <set-payload value="#[payload['email']]" doc:name="Set payload to Email"/>
         <regex-filter pattern="[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" doc:name="Validate email"/>
-        
-        
-        <logger message="Email validation passed." level="INFO" doc:name="Log the validation response"/>
+        <set-payload value="Input data validation passed." doc:name="Set Payload"/>
         <choice-exception-strategy doc:name="Choice Exception Strategy">
             <catch-exception-strategy doc:name="Catch Invalid Data" when="#[exception.causedBy(java.lang.IllegalArgumentException)]">
-                <logger message="Invalid input data: #[payload]" level="ERROR" doc:name="Log the error message"/>
+                <set-payload value="Invalid input data: #[payload]" doc:name="Set Payload"/>
                 <http:response-builder status="400" doc:name="HTTP Response Builder"/>
             	
             </catch-exception-strategy>
             <catch-exception-strategy when="#[exception.causedBy(java.lang.NullPointerException)]" doc:name="Catch Missing Data">
-                <logger message="Missing input data: #[payload]" level="INFO" doc:name="Log the error message"/>
+                <set-payload value="Missing input data: #[payload]" doc:name="Set Payload"/>
                 <http:response-builder status="400" doc:name="HTTP Response Builder"/>
             </catch-exception-strategy>
             
